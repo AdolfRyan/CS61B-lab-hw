@@ -34,7 +34,7 @@ public class NBody {
     Planet[] planets = readPlanets(filename);
 
     double[] xForces = new double[planets.length];
-    doubel[] yForces = new double[planets.length];
+    double[] yForces = new double[planets.length];
 
     double radius = readRadius(filename);
 
