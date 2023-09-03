@@ -75,19 +75,23 @@ public class LinkedListDeque<T> {
             return;
         }
         else {
+            T itemTmp = this.sentinel.next.item;
             this.sentinel.next = this.sentinel.next.next;
             this.sentinel.next.pre = this.sentinel;
+            return itemTmp;
         }
     }
 
-    public void removeLast() {
+    public T removeLast() {
         size -= 1;
         if(this.size == 0) {
-            return;
+            return null;
         }
         else {
+            T itemTmp = this.sentinel.pre.item;
             this.sentinel.pre.pre.next = this.sentinel;
             this.sentinel.pre = this.sentinel.pre.pre;
+            return itemTmp;
         }
     }
 
@@ -107,5 +111,12 @@ public class LinkedListDeque<T> {
         else {
             return getRecursive(start.next,index,count+1);
         }
+    }
+
+    public boolean isEmpty() {
+        if(size == 0) {
+            return true;
+        }
+        return false;
     }
 }
