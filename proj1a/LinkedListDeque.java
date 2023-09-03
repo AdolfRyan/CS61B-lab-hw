@@ -75,13 +75,14 @@ public class LinkedListDeque<T> {
         else {
             T itemTmp = this.sentinel.next.item;
             this.sentinel.next = this.sentinel.next.next;
-            this.sentinel.next.pre = this.sentinel;
+            if(this.sentinel.next != null) {
+                this.sentinel.next.pre = this.sentinel;
+            }
             return itemTmp;
         }
     }
 
     public T removeLast() {
-        size -= 1;
         if(this.size == 0) {
             return null;
         }
@@ -89,6 +90,7 @@ public class LinkedListDeque<T> {
             T itemTmp = this.sentinel.pre.item;
             this.sentinel.pre.pre.next = this.sentinel;
             this.sentinel.pre = this.sentinel.pre.pre;
+            size -= 1;
             return itemTmp;
         }
     }
