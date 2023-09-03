@@ -4,8 +4,10 @@ public class LinkedListDeque<T> {
         public ItemNode<T> next;
         public ItemNode<T> pre;
 
-        public ItemNode(T item) {
+        public ItemNode(T item,ItemNode nnext,ItemNode ppre) {
             this.item = item;
+            next = nnext;
+            pre = ppre;
         }
     }
 
@@ -14,7 +16,9 @@ public class LinkedListDeque<T> {
 
     public LinkedListDeque() {
         size = 0;
-        sentinel = new ItemNode<T>(null);
+        sentinel = new ItemNode<T>(null,null,null);
+        sentinel.next = sentinel;
+        sentinel.pre = sentinel;
     }
 
     public int size() {
@@ -34,52 +38,30 @@ public class LinkedListDeque<T> {
     }
 
     public void addFirst(T x) {
-        ItemNode<T> tmp = new ItemNode<T>(x);
+        ItemNode<T> tmp = new ItemNode<T>(x,sentinel.next,sentinel);
         size += 1;
-        if (this.size == 0) {
-            this.sentinel.next = tmp;
-            tmp.pre = this.sentinel;
-            this.sentinel.pre = tmp;
-            tmp.next = this.sentinel;
-        }
-        else {
-            tmp.next = this.sentinel.next;
-            this.sentinel.next.pre = tmp;
-            this.sentinel.next = tmp;
-            tmp.pre = this.sentinel;
-        }
+        this.sentinel.next = tmp;
+        this.sentinel.pre = tmp;
     }
 
     public void addLast(T x) {
         size += 1;
-        ItemNode<T> tmp = new ItemNode<T>(x);
-        if (this.size == 0) {
-            this.sentinel.next = tmp;
-            tmp.pre = this.sentinel;
-            this.sentinel.pre = tmp;
-            tmp.next = this.sentinel;
-        }
-        else {
-            tmp.pre = this.sentinel.pre;;
-            tmp.next = this.sentinel;
-            this.sentinel.pre.next = tmp;
-            this.sentinel.pre = tmp;
-        }
+        ItemNode<T> tmp = new ItemNode<T>(x,sentinel.pre,sentinel);
+        this.sentinel.next = tmp;
+        this.sentinel.pre = tmp;
     }
 
     public T removeFirst() {
-        size -= 1;
         if(this.size == 0) {
             return null;
         }
-        else {
-            T itemTmp = this.sentinel.next.item;
-            this.sentinel.next = this.sentinel.next.next;
-            if(this.sentinel.next != null) {
-                this.sentinel.next.pre = this.sentinel;
-            }
-            return itemTmp;
+        T itemTmp = this.sentinel.next.item;
+        this.sentinel.next = this.sentinel.next.next;
+        if(this.sentinel.next != null) {
+            this.sentinel.next.pre = this.sentinel;
         }
+        size--;
+        return itemTmp;
     }
 
     public T removeLast() {

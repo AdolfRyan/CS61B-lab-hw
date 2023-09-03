@@ -58,5 +58,6 @@ public class ArrayDequeOwn<T> {
         T x = items[0];
         T[] tmp = (T[]) new Object[items.length];
         size -= 1;
+        return x;
     }
 }
