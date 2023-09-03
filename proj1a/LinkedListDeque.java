@@ -4,10 +4,8 @@ public class LinkedListDeque<T> {
         public ItemNode<T> next;
         public ItemNode<T> pre;
 
-        public ItemNode(T item,ItemNode<T> next,ItemNode<T> pre) {
+        public ItemNode(T item) {
             this.item = item;
-            this.next =next;
-            this.pre = pre;
         }
     }
 
@@ -16,7 +14,7 @@ public class LinkedListDeque<T> {
 
     public LinkedListDeque() {
         size = 0;
-        sentinel = new ItemNode<T>(null,null,null);
+        sentinel = new ItemNode<T>(null);
     }
 
     public int size() {
@@ -36,7 +34,7 @@ public class LinkedListDeque<T> {
     }
 
     public void addFirst(T x) {
-        ItemNode<T> tmp = new ItemNode<T>(x,null,null);
+        ItemNode<T> tmp = new ItemNode<T>(x);
         size += 1;
         if (this.size == 0) {
             this.sentinel.next = tmp;
@@ -54,7 +52,7 @@ public class LinkedListDeque<T> {
 
     public void addLast(T x) {
         size += 1;
-        ItemNode<T> tmp = new ItemNode<T>(x,null,null);
+        ItemNode<T> tmp = new ItemNode<T>(x);
         if (this.size == 0) {
             this.sentinel.next = tmp;
             tmp.pre = this.sentinel;
