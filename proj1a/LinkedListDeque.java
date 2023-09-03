@@ -99,4 +99,12 @@ public class LinkedListDeque<T> {
         }
         return false;
     }
+    public void printDeque()
+    {
+        ItemNode<T> tmp = sentinel.next;
+        while(tmp != null) {
+            System.out.print(tmp.item + " ");
+            tmp = tmp.next;
+        }
+    }
 }
