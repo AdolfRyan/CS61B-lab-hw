@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     public static class ItemNode<T> {
         public T item;
-        public ItemNode<T> next;
-        public ItemNode<T> pre;
+        private ItemNode<T> next;
+        private ItemNode<T> pre;
 
         public ItemNode(T item,ItemNode nnext,ItemNode ppre) {
             this.item = item;
@@ -40,8 +40,8 @@ public class LinkedListDeque<T> {
     public void addFirst(T x) {
         ItemNode<T> tmp = new ItemNode<T>(x,sentinel.next,sentinel);
         size += 1;
+        this.sentinel.next.pre = tmp;
         this.sentinel.next = tmp;
-        this.sentinel.pre = tmp;
     }
 
     public void addLast(T x) {
@@ -99,7 +99,7 @@ public class LinkedListDeque<T> {
         }
         return false;
     }
-    public void printDeque()
+    private void printDeque()
     {
         ItemNode<T> tmp = sentinel.next;
         while(tmp != null) {
