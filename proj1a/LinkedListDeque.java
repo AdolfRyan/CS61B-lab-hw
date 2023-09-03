@@ -84,7 +84,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T getRecursive(ItemNode<T> start,int index,int count) {
+    private T getRecursive(ItemNode<T> start,int index,int count) {
         if(count == index) {
             return start.item;
         }
@@ -99,8 +99,7 @@ public class LinkedListDeque<T> {
         }
         return false;
     }
-    private void printDeque()
-    {
+    public void printDeque() {
         ItemNode<T> tmp = sentinel.next;
         while(tmp != null) {
             System.out.print(tmp.item + " ");
