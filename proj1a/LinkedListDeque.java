@@ -47,7 +47,7 @@ public class LinkedListDeque<T> {
     public void addLast(T x) {
         size += 1;
         ItemNode<T> tmp = new ItemNode<T>(x,sentinel,sentinel.pre);
-        this.sentinel.next = tmp;
+        this.sentinel.pre.next = tmp;
         this.sentinel.pre = tmp;
     }
 
@@ -57,9 +57,7 @@ public class LinkedListDeque<T> {
         }
         T itemTmp = this.sentinel.next.item;
         this.sentinel.next = this.sentinel.next.next;
-        if(this.sentinel.next != null) {
-            this.sentinel.next.pre = this.sentinel;
-        }
+        this.sentinel.next.pre = this.sentinel;
         size--;
         return itemTmp;
     }
