@@ -69,10 +69,10 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public void removeFirst() {
+    public T removeFirst() {
         size -= 1;
         if(this.size == 0) {
-            return;
+            return null;
         }
         else {
             T itemTmp = this.sentinel.next.item;
