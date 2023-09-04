@@ -62,7 +62,7 @@ public class ArrayDeque<T> {
         if (size <= items.length / 4 && items.length / 4 >= 1) {
             shrinksize();
         }
-        items = tmp;
+
         return x;
     }
 
