@@ -13,7 +13,7 @@ public class ArrayDeque<T> {
     }
 
     private void shrinksize() {
-        T[] tmp = (T[]) new Object[items.length / 2];
+        T[] tmp = (T[]) new Object[items.length / 4];
         System.arraycopy(items,0,tmp,0,size);
         items = tmp;
     }
@@ -42,11 +42,9 @@ public class ArrayDeque<T> {
         if(size ==items.length) {
             doubleSize();
         }
-        T[] tmp = (T[]) new Object[items.length];
-        System.arraycopy(items,0,tmp,1,size);
-        tmp[0] = x;
+        System.arraycopy(items,0,items,1,size);
+        items[0] = x;
         size += 1;
-        items = tmp;
     }
 
     public T removeFirst() {
@@ -70,8 +68,9 @@ public class ArrayDeque<T> {
             return null;
         }
         T x = items[size- 1];
+        items[size - 1] = null;
         size -= 1;
-        if (size <= items.length / 2) {
+        if (size <= items.length / 4) {
             shrinksize();
         }
         return x;
