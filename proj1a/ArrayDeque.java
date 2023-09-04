@@ -61,14 +61,14 @@ public class ArrayDeque<T> {
         if(size == 0) {
             return null;
         }
-        while (size <= items.length / 2) {
-            shrinksize();
-        }
         T x = items[0];
         T[] tmp = (T[]) new Object[items.length];
         size -= 1;
         System.arraycopy(items,1,tmp,0,size);
         items = tmp;
+        while (size <= items.length / 2) {
+            shrinksize();
+        }
         return x;
     }
 
@@ -76,11 +76,11 @@ public class ArrayDeque<T> {
         if(size == 0) {
             return null;
         }
+        T x = items[size- 1];
+        size -= 1;
         while (size <= items.length / 2) {
             shrinksize();
         }
-        T x = items[size- 1];
-        size -= 1;
         return x;
     }
 
