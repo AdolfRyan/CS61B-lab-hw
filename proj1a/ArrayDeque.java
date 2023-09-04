@@ -7,13 +7,13 @@ public class ArrayDeque<T> {
     }
 
     private void doubleSize() {
-        T[] tmp = (T[]) new Object[size * 2];
+        T[] tmp = (T[]) new Object[items.length * 2];
         System.arraycopy(items,0,tmp,0,size);
         items = tmp;
     }
 
     private void shrinksize() {
-        T[] tmp = (T[]) new Object[size / 2];
+        T[] tmp = (T[]) new Object[items.length / 2];
         System.arraycopy(items,0,tmp,0,size);
         items = tmp;
     }
@@ -66,7 +66,7 @@ public class ArrayDeque<T> {
         size -= 1;
         System.arraycopy(items,1,tmp,0,size);
         items = tmp;
-        while (size <= items.length / 2) {
+        if (size <= items.length / 2) {
             shrinksize();
         }
         return x;
@@ -78,7 +78,7 @@ public class ArrayDeque<T> {
         }
         T x = items[size- 1];
         size -= 1;
-        while (size <= items.length / 2) {
+        if (size <= items.length / 2) {
             shrinksize();
         }
         return x;
@@ -94,4 +94,7 @@ public class ArrayDeque<T> {
         return size == 0;
     }
 
+    public static void main(String[] args) {
+
+    }
 }
