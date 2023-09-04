@@ -41,18 +41,10 @@ public class ArrayDeque<T> {
 
         if(size ==items.length) {
             doubleSize();
-            System.arraycopy(items,0,items,1,size);
-            items[0] = x;
-            size += 1;
-            return;
         }
-        else {
-            T[] tmp = (T[]) new Object[items.length];
-            System.arraycopy(items,0,tmp,1,size);
-            tmp[0] = x;
-            size += 1;
-            items = tmp;
-        }
+        System.arraycopy(items,0,items,1,size);
+        items[0] = x;
+        size += 1;
     }
 
     public T removeFirst() {
