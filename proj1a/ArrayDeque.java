@@ -1,21 +1,25 @@
 public class ArrayDeque<T> {
     private T[] items;
     private int size;
+    private int front;
     public ArrayDeque() {
         items =(T[]) new Object[8];
         size = 0;
+        front = 0;
     }
 
     private void doubleSize() {
         T[] tmp = (T[]) new Object[items.length * 2];
-        System.arraycopy(items,0,tmp,0,size);
+        System.arraycopy(items,front,tmp,0,size);
         items = tmp;
+        front = 0;
     }
 
     private void shrinksize() {
         T[] tmp = (T[]) new Object[items.length / 4];
-        System.arraycopy(items,0,tmp,0,size);
+        System.arraycopy(items,front,tmp,0,size);
         items = tmp;
+        front = 0;
     }
 
     public T get(int index) {
@@ -51,10 +55,9 @@ public class ArrayDeque<T> {
         if(size == 0) {
             return null;
         }
-        T[] tmp = (T[]) new Object[items.length];
-        T x = items[0];
+        T x = items[front];
         size -= 1;
-        System.arraycopy(items,1,tmp,0,size);
+        front += 1;
 
         if (size <= items.length / 4 && items.length / 4 >= 1) {
             shrinksize();
@@ -86,17 +89,4 @@ public class ArrayDeque<T> {
         return size == 0;
     }
 
-    /*public static void main(String[] args) {
-        ArrayDeque<Integer> ArrayDeque1 = new ArrayDeque<>();
-        ArrayDeque1.addFirst(0);
-        ArrayDeque1.removeLast();
-        ArrayDeque1.addFirst(2);
-        ArrayDeque1.removeLast();
-        ArrayDeque1.addFirst(4);
-        ArrayDeque1.removeLast();
-        ArrayDeque1.isEmpty();
-        ArrayDeque1.addFirst(7);
-        ArrayDeque1.removeLast();
-        ArrayDeque1.addFirst(9);
-    }*/
 }
