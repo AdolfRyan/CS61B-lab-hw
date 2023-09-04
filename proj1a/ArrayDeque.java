@@ -1,93 +1,83 @@
 public class ArrayDeque<T> {
     private T[] items;
     private int size;
-    private int start; // 新增：用于跟踪头部元素的索引
-    private int end;   // 新增：用于跟踪尾部元素的索引
-
     public ArrayDeque() {
-        items = (T[]) new Object[8];
+        items =(T[]) new Object[8];
         size = 0;
-        start = 0;
-        end = 0;
     }
 
-    public void addLast(T item) {
-        if (size == items.length) {
-            resize(items.length * 2);
-        }
-        items[end] = item;
-        end = (end + 1) % items.length; // 使用循环数组来避免溢出
-        size++;
+    private void doubleSize() {
+        T[] tmp = (T[]) new Object[size * 2];
+        System.arraycopy(items,0,tmp,0,size);
+        items = tmp;
     }
 
-    public void addFirst(T item) {
-        if (size == items.length) {
-            resize(items.length * 2);
-        }
-        start = (start - 1 + items.length) % items.length; // 使用循环数组来避免溢出
-        items[start] = item;
-        size++;
-    }
-
-    public T removeLast() {
-        if (size == 0) {
+    public T get(int index) {
+        if(index < 0 || index >= size) {
             return null;
         }
-        T removed = items[(end - 1 + items.length) % items.length];
-        end = (end - 1 + items.length) % items.length;
-        size--;
-
-        if (size < items.length / 4 && items.length > 16) {
-            resize(items.length / 2);
-        }
-
-        return removed;
-    }
-
-    public T removeFirst() {
-        if (size == 0) {
-            return null;
-        }
-        T removed = items[start];
-        start = (start + 1) % items.length;
-        size--;
-
-        if (size < items.length / 4 && items.length > 16) {
-            resize(items.length / 2);
-        }
-
-        return removed;
+        return items[index];
     }
 
     public int size() {
         return size;
     }
 
-    public T get(int index) {
-        if (index < 0 || index >= size) {
+    public void addLast(T x) {
+        if(size == items.length) {
+            doubleSize();
+        }
+        items[size] = x;
+        size += 1;
+    }
+
+    public void addFirst(T x) {
+
+        if(size ==items.length) {
+            T[] tmp1 = (T[]) new Object[items.length * 2];
+            doubleSize();
+            System.arraycopy(items,0,tmp1,1,size);
+            tmp1[0] = x;
+            size += 1;
+            items = tmp1;
+            return;
+        }
+        else {
+            T[] tmp = (T[]) new Object[items.length];
+            System.arraycopy(items,0,tmp,1,size);
+            tmp[0] = x;
+            size += 1;
+            items = tmp;
+        }
+    }
+
+    public T removeFirst() {
+        if(size == 0) {
             return null;
         }
-        return items[(start + index) % items.length];
+        T x = items[0];
+        T[] tmp = (T[]) new Object[items.length];
+        size -= 1;
+        return x;
+    }
+
+    public T removeLast() {
+        if(size == 0) {
+            return null;
+        }
+        T x = items[size- 1];
+        size -= 1;
+        return x;
     }
 
     public void printDeque() {
         for (int i = 0; i < size; i++) {
-            System.out.print(get(i) + " ");
+            System.out.print(items[i] + " ");
         }
-        System.out.println();
     }
 
     public boolean isEmpty() {
         return size == 0;
     }
 
-    private void resize(int capacity) {
-        T[] newArray = (T[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = get(i);
-        }
-        items = newArray;
-        start = 0;
-        end = size;
-    }
 }

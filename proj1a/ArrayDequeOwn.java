@@ -60,4 +60,23 @@ public class ArrayDequeOwn<T> {
         size -= 1;
         return x;
     }
+
+    public T removeLast() {
+        if(size == 0) {
+            return null;
+        }
+        T x = items[size- 1];
+        size -= 1;
+        return x;
+    }
+
+    public void printDeque() {
+        for (int i = 0; i < size; i++) {
+            System.out.print(items[i] + " ");
+        }
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 }
