@@ -12,6 +12,12 @@ public class ArrayDeque<T> {
         items = tmp;
     }
 
+    private void shrinksize() {
+        T[] tmp = (T[]) new Object[size / 2];
+        System.arraycopy(items,0,tmp,0,size);
+        items = tmp;
+    }
+
     public T get(int index) {
         if(index < 0 || index >= size) {
             return null;
@@ -55,6 +61,9 @@ public class ArrayDeque<T> {
         if(size == 0) {
             return null;
         }
+        while (size <= items.length / 2) {
+            shrinksize();
+        }
         T x = items[0];
         T[] tmp = (T[]) new Object[items.length];
         size -= 1;
@@ -66,6 +75,9 @@ public class ArrayDeque<T> {
     public T removeLast() {
         if(size == 0) {
             return null;
+        }
+        while (size <= items.length / 2) {
+            shrinksize();
         }
         T x = items[size- 1];
         size -= 1;
