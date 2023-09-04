@@ -56,7 +56,7 @@ public class ArrayDeque<T> {
         size -= 1;
         System.arraycopy(items,1,tmp,0,size);
 
-        if (size <= items.length / 2) {
+        if (size <= items.length / 4 && items.length / 4 >= 1) {
             shrinksize();
         }
         items = tmp;
@@ -70,7 +70,7 @@ public class ArrayDeque<T> {
         T x = items[size- 1];
         items[size - 1] = null;
         size -= 1;
-        if (size <= items.length / 4) {
+        if (size <= items.length / 4 && items.length / 4 >= 1) {
             shrinksize();
         }
         return x;
