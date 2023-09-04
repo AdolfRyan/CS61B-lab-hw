@@ -42,22 +42,26 @@ public class ArrayDeque<T> {
         if(size ==items.length) {
             doubleSize();
         }
-        System.arraycopy(items,0,items,1,size);
-        items[0] = x;
+        T[] tmp = (T[]) new Object[items.length];
+        System.arraycopy(items,0,tmp,1,size);
+        tmp[0] = x;
         size += 1;
+        items = tmp;
     }
 
     public T removeFirst() {
         if(size == 0) {
             return null;
         }
+        T[] tmp = (T[]) new Object[items.length];
         T x = items[0];
         size -= 1;
-        System.arraycopy(items,1,items,0,size);
+        System.arraycopy(items,1,tmp,0,size);
 
         if (size <= items.length / 2) {
             shrinksize();
         }
+        items = tmp;
         return x;
     }
 
